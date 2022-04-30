@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/payment/notification',paymentsRoute);
-app.use('',generalErrorRoute);
+app.use('/',generalErrorRoute);
 
-app.listen(3000,function(){
+app.listen(5000,function(){
     console.log("node server running on port 3000");
 });
