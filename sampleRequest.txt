@@ -1,0 +1,10 @@
+extOrderNo External Order No. string(20) M
+amount Transaction amount number(12) M
+currency Transaction currency
+SRD：968 <SRD>
+USD：840 <USD>
+EURO：978 <EURO>
+number(3) M
+mchtOrderNo Merchant order No. number(20) M
+orderNo Transaction number string(20) M
+Status Payment status string(256) M
