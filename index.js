@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const movies = require("./route/paymentTransactions.route");
-
+const paymentsRoute = require("./route/paymentTransactions.route");
+const generalErrorRoute = require('./route/generalError.route');
 
 const app = express();
 app.use((req,res,next)=>{
@@ -14,7 +14,8 @@ app.use((req,res,next)=>{
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/payment/notification',movies);
+app.use('/payment/notification',paymentsRoute);
+app.use('',generalErrorRoute);
 
 app.listen(3000,function(){
     console.log("node server running on port 3000");
