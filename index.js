@@ -18,5 +18,5 @@ app.use('/payment/notification',paymentsRoute);
 app.use('/',generalErrorRoute);
 
 app.listen(5000,function(){
-    console.log("node server running on port 3000");
+    console.log("node server running on port 5000");
 });
