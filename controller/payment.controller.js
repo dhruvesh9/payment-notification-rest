@@ -4,10 +4,16 @@ const Response = require('../utility/response');
 const fs = require('fs');
 
 exports.payment_list = function (req, res) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('Payment Notification GET ALL Payments')
+    console.log('--------------------------------------------');
     res.send(Response.createResponse(null, readDataFromStorage()));
+    
 };
 
 exports.payment_getById = function (req, res) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('Payment Notification GET Payment By ID')
     console.log(req.params);
     let id = req.params.id;
     let payments = readDataFromStorage();
@@ -20,11 +26,13 @@ exports.payment_getById = function (req, res) {
             break;
         }
     }
-
+    console.log('--------------------------------------------');
     res.send(Response.createResponse(null, requiredPaymentDetail));
 }
 
 exports.payment_post = function (req, res) {
+    console.log('++++++++++++++++++++++++++++++++++++++++++++');
+    console.log('Payment Notification POST new payment')
     console.log(req.body);
 
     if (req.body != undefined) {
@@ -41,11 +49,12 @@ exports.payment_post = function (req, res) {
 
         payments.push(newPayment);
         writeDataIntoStorage(payments);
+        console.log('--------------------------------------------');
         res.send(Response.createResponse(null, payments));
+    }else{
+        console.log('--------------------------------------------');
+        res.send(Response.createResponse(null, "NOT POSTED, request body empty" + req.body));
     }
-
-    res.send(Response.createResponse(null, "NOT POSTED, request body empty" + req.body));
-
 }
 
 readDataFromStorage = function () {
