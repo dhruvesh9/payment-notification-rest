@@ -7,8 +7,14 @@ exports.payment_list = function (req, res) {
     console.log('++++++++++++++++++++++++++++++++++++++++++++');
     console.log('Payment Notification GET ALL Payments')
     console.log('--------------------------------------------');
-    res.send(Response.createResponse(null, readDataFromStorage()));
-    
+    if(req.query.result === 'success'){
+        res.send(Response.createResponse(null, readDataFromStorage()));    
+    }else{
+        let error = {
+            'message':'payment failed'
+        };
+        res.send(Response.createResponse(error,null));    
+    }
 };
 
 exports.payment_getById = function (req, res) {
@@ -53,7 +59,7 @@ exports.payment_post = function (req, res) {
         res.send(Response.createResponse(null, payments));
     }else{
         console.log('--------------------------------------------');
-        res.send(Response.createResponse(null, "NOT POSTED, request body empty" + req.body));
+        res.send(Response.createResponse(null, "NOT POSTED, request body empty"));
     }
 }
 
