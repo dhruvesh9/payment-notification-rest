@@ -4,16 +4,30 @@ const Response = require('../utility/response');
 const fs = require('fs');
 
 exports.payment_list = function (req, res) {
-    console.log('++++++++++++++++++++++++++++++++++++++++++++');
-    console.log('Payment Notification GET ALL Payments')
-    console.log('--------------------------------------------');
-    if(req.query.result === 'success'){
-        res.send(Response.createResponse(null, readDataFromStorage()));    
-    }else{
-        let error = {
-            'message':'payment failed'
-        };
-        res.send(Response.createResponse(error,null));    
+    // console.log('++++++++++++++++++++++++++++++++++++++++++++');
+    // console.log('Payment Notification GET ALL Payments')
+    // console.log('--------------------------------------------');
+    if (req.query.result === 'success') {
+
+        let data = {}
+        data['DateTime'] = `[${new Date().toLocaleString()}] Incoming Request:`
+        data['HTTP Method'] = req.method;
+        data['URL'] = req.originalUrl;
+        data['HTTP Headers'] = req.headers;
+        data['Query Params'] = req.query;
+        data['Body'] = req.body
+
+        res.send(data);
+    } else {
+        let data = {}
+        data['DateTime'] = `[${new Date().toLocaleString()}] Incoming Request:`
+        data['HTTP Method'] = req.method;
+        data['URL'] = req.originalUrl;
+        data['HTTP Headers'] = req.headers;
+        data['Query Params'] = req.query;
+        data['Body'] = req.body
+
+        res.send(data);
     }
 };
 
@@ -41,32 +55,21 @@ exports.payment_post = function (req, res) {
     console.log('Payment Notification POST new payment')
     console.log(req.body);
 
-    if (req.body != undefined) {
-        let payments = readDataFromStorage();
+    let data = {}
+    data['DateTime'] = `[${new Date().toLocaleString()}] Incoming Request:`
+    data['HTTP Method'] = req.method;
+    data['URL'] = req.originalUrl;
+    data['HTTP Headers'] = req.headers;
+    data['Query Params'] = req.query;
+    data['Body'] = req.body
 
-        let newPayment = new PaymentNotificationModel({
-            extOrderNo: req.body.extOrderNo,
-            amount: req.body.amount,
-            currency: req.body.currency,
-            mchtOrderNo: req.body.mchtOrderNo,
-            orderNo: req.body.orderNo,
-            status: req.body.status
-        });
-
-        payments.push(newPayment);
-        writeDataIntoStorage(payments);
-        console.log('--------------------------------------------');
-        res.send(Response.createResponse(null, payments));
-    }else{
-        console.log('--------------------------------------------');
-        res.send(Response.createResponse(null, "NOT POSTED, request body empty"));
-    }
+    res.send(data);
 }
 
 readDataFromStorage = function () {
     let rawdata = fs.readFileSync('paymentStorage.json');
     let payments = JSON.parse(rawdata);
-    console.log(payments);
+    // console.log(payments);
     return payments;
 }
 
